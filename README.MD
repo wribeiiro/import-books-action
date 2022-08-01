@@ -15,7 +15,7 @@
 ## 🧾 A little bit about me
 
 Brazilian 🇧🇷 26y, christian, married, and father of two kids. Gratuated in Analysis and Systems Development and now, i am an english student 🇺🇸.
-I've being working as Developer since 2016 with different technologies, but currently my main stack is Back-end with PHP, Laravel and MySQL. 
+I've being working as Developer since 2016 with different technologies, but currently my main stack is Back-end with PHP, Laravel and MySQL.
 Currently i work as a Software Engineer at <a href="https://www.softexpert.com" target="_blank">SoftExpert</a>
 
 ### 👨🏻‍💻 Main Stack
@@ -45,4 +45,4 @@ Currently i work as a Software Engineer at <a href="https://www.softexpert.com" 
 
 ### 📖 What am i reading the last few days
 
-- Caminhando com o Peregrino: Retratos de Porções da Imortal Alegoria de John Bunyan
+- Caminhando com o Peregrino: Retratos de Porções da Imortal Alegoria de John Bunyan.

@@ -7,8 +7,7 @@ use Minicli\Command\CommandController;
 
 class BookController extends CommandController
 {
-    private string $apiURL = 'https://gist.githubusercontent.com/wribeiiro/304a9c10d3bcb6ffbf4da923d02dbb2d/raw/3580133f6402eece524e79531bf3c72e318750a9/books.json';
-    //private string $readmeFileUrl = 'https://raw.githubusercontent.com/wribeiiro/wribeiiro/master/README.MD';
+    private string $apiURL = 'https://gist.githubusercontent.com/wribeiiro/304a9c10d3bcb6ffbf4da923d02dbb2d/raw/books.json';
 
     public function handle(): void
     {
@@ -22,27 +21,27 @@ class BookController extends CommandController
             return;
         }
 
-        $books = json_decode($response['body']);
-        //$responseReadme = file_get_contents($this->readmeFileUrl);
+        $gitBooksJson = json_decode($response['body'], true);
+        $localBooksJson = json_decode(file_get_contents(dirname(__DIR__, 3) . '/books.json'), true);
 
-        //if (!$responseReadme) {
-        //    $this->getPrinter()->error('Error while contacting the readmeFileUrl :/');
-        //    return;
-        //}
+        if (count($gitBooksJson['data']) <= count($localBooksJson['data'])) {
+            $this->getPrinter()->info("Json already updated, ignoring update.");
+            exit;
+        }
+
+        file_put_contents(dirname(__DIR__, 3) . '/books.json', $response['body']);
 
         $strNewContent = "";
-        foreach($books->data as $book) {
-            $strNewContent .= "- " . $book->title . PHP_EOL;
-            $this->getPrinter()->info("Reading book: " . $book->title);
+        foreach($gitBooksJson['data'] as $book) {
+            $strNewContent .= "- " . $book['title'] . PHP_EOL;
+            $this->getPrinter()->info("Reading book: " . $book['title']);
         }
 
         if (strlen($strNewContent) > 0) {
-            $file = fopen(dirname(__DIR__, 3) . '/README.MD', 'a');
-            fwrite($file, $strNewContent);
-            fclose($file);
+            file_put_contents(dirname(__DIR__, 3) . '/README.MD', $strNewContent, FILE_APPEND);
+            $this->getPrinter()->info("Adding book: " . $book['title']);
         }
 
-
-        $this->getPrinter()->info("Finished importing.", true);
+        $this->getPrinter()->success("Finished importing.", true);
     }
 }
